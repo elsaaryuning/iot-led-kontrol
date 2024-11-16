@@ -24,8 +24,9 @@ void setup() {
   client.setCallback(callback);
   while (!client.connected()) {
     Serial.println("Connecting to MQTT...");
-    if (client.connect("ESP32Client", "pablo", "costa")) {
-      Serial.println("Connected to MQTT");
+    String clientId = "ESP32_" + String(random(0xffff), HEX);
+    if (client.connect(clientId.c_str(), "pablo", "costa")) {
+      Serial.println("Connected to MQTT Broker with clientId: " + clientId);
       client.subscribe("iot/led/control");
     } else {
       delay(2000);
